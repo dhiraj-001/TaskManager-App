@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import {
   ScrollView,
@@ -9,32 +9,33 @@ import {
   View,
 } from 'react-native';
 import Navigation from './src/screens/Navigation';
+import { ThemeContext, ThemeProvider } from './src/Context/MyContext';
+import { TaskProvider } from './src/Context/TaskContext';
 
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? "#1C1B26" : "#FAFAFF"
-  };
-
+const AppContent = () => {
+  const {colors, isDarkMode} = useContext(ThemeContext);
   return (
-    <View style={{ 
-      flex: 1, 
-      backgroundColor: backgroundStyle.backgroundColor,
-
+    <View style={{
+      flex: 1,
+      backgroundColor: colors.bgColor,
     }}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        backgroundColor={colors.bgColor}
       />
-      <Text style={{
-        color: isDarkMode ? '#fff' : '#000',
-        fontSize: 24,
-        fontWeight: 'bold'
-      }}>Hello</Text>
+      
       <Navigation />
     </View>
+  );
+};
+
+function App(): React.JSX.Element {
+  return (
+    <ThemeProvider>
+      <TaskProvider>
+        <AppContent />
+      </TaskProvider>
+    </ThemeProvider>
   );
 }
 

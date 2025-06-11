@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './HomeScreen';
 import AddTaskScreen from './AddTaskScreen';
+import { ThemeContext } from '../Context/MyContext';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/MaterialIcons';
 
 const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
+  const {colors, isDarkMode} = useContext(ThemeContext);
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="AddTask" component={AddTaskScreen} />
+      <Tab.Navigator screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: colors.Bodytext,
+        },
+        tabBarActiveTintColor: colors.bgColor,
+      }}>
+        <Tab.Screen name="My tasks" component={HomeScreen} options={{
+          tabBarIcon: () => (
+            <Icon name="tasks" style={{fontSize: 20}} />
+          )
+        }} />
+        <Tab.Screen name="AddTask" component={AddTaskScreen} options={{
+          tabBarIcon: () => (
+            <Icon2 name="add-task" style={{fontSize: 20}} />
+          )
+        }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
