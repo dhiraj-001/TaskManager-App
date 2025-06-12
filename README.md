@@ -12,7 +12,11 @@ A modern, user-friendly task management app built with React Native. TaskManager
 
 ## Screenshots
 
-(Add screenshots of your app here)
+![Home Screen](assets/home.jpg)
+![Add Task Screen](assets/add-task.jpg)
+![Task Details](assets/task-details.jpg)
+![Task List](assets/task-list.jpg)
+![Dark Mode](assets/dark-mode.jpg)
 
 ## Installation
 
