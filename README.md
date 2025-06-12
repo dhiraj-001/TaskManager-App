@@ -1,97 +1,84 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# TaskManager
 
-# Getting Started
+A modern, user-friendly task management app built with React Native. TaskManager helps you organize your tasks efficiently with a beautiful UI and smooth user experience.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- **Task Management**: Add, delete, and mark tasks as completed.
+- **Persistent Storage**: Tasks are saved locally using AsyncStorage, so they remain even after closing the app.
+- **Dark Mode**: Toggle between light and dark themes for comfortable viewing.
+- **Responsive UI**: Clean and intuitive interface with smooth animations.
+- **Cross-Platform**: Works on both Android and iOS.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Screenshots
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+(Add screenshots of your app here)
 
-```sh
-# Using npm
-npm start
+## Installation
 
-# OR using Yarn
-yarn start
-```
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/TaskManager.git
+   cd TaskManager
+   ```
 
-## Step 2: Build and run your app
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+3. **Install AsyncStorage** (if not already installed):
+   ```bash
+   npm install @react-native-async-storage/async-storage
+   ```
 
-### Android
+4. **Run the app**:
+   - For Android:
+     ```bash
+     npm run android
+     ```
+   - For iOS:
+     ```bash
+     npm run ios
+     ```
 
-```sh
-# Using npm
-npm run android
+## Usage
 
-# OR using Yarn
-yarn android
-```
+- **Home Screen**: View all your tasks. If no tasks are added, you'll see a prompt to add one.
+- **Add Task Screen**: Create new tasks with a title and description.
+- **Task Card**: Click on a task to view its details. Mark tasks as completed or delete them.
 
-### iOS
+## Building the APK
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+To generate a release APK for Android:
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+1. **Generate a keystore** (if you haven't already):
+   ```bash
+   keytool -genkeypair -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+   ```
 
-```sh
-bundle install
-```
+2. **Move the keystore** to `android/app/my-release-key.keystore`.
 
-Then, and every time you update your native dependencies, run:
+3. **Configure the keystore** in `android/gradle.properties`:
+   ```
+   MYAPP_UPLOAD_STORE_FILE=my-release-key.keystore
+   MYAPP_UPLOAD_KEY_ALIAS=my-key-alias
+   MYAPP_UPLOAD_STORE_PASSWORD=your-store-password
+   MYAPP_UPLOAD_KEY_PASSWORD=your-key-password
+   ```
 
-```sh
-bundle exec pod install
-```
+4. **Build the APK**:
+   ```bash
+   cd android
+   ./gradlew assembleRelease
+   ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+5. **Find the APK** at `android/app/build/outputs/apk/release/app-release.apk`.
 
-```sh
-# Using npm
-npm run ios
+## Contributing
 
-# OR using Yarn
-yarn ios
-```
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## License
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+This project is licensed under the MIT License - see the LICENSE file for details.
