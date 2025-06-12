@@ -22,12 +22,12 @@ const Navigation = () => {
       }}>
         <Tab.Screen name="My tasks" component={HomeScreen} options={{
           tabBarIcon: () => (
-            <Icon name="tasks" style={{fontSize: 20}} />
+            <Icon name="tasks" color={colors.bgColor} style={{fontSize: 20}} />
           )
         }} />
         <Tab.Screen name="AddTask" component={AddTaskScreen} options={{
           tabBarIcon: () => (
-            <Icon2 name="add-task" style={{fontSize: 20}} />
+            <Icon2 name="add-task" color={colors.bgColor} style={{fontSize: 20}} />
           )
         }} />
       </Tab.Navigator>

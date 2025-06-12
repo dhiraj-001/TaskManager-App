@@ -1,9 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { ThemeContext } from '../Context/MyContext';
 import { useContext } from 'react';
 import { Button } from 'react-native-paper';
 import { TaskContext } from '../Context/TaskContext';
+import { Chip } from 'react-native-paper';
 
 
 interface TaskCardProps {
@@ -16,43 +17,66 @@ interface TaskCardProps {
 }
 
 
-const TaskCard = ({ title, description, completed, bgColor,date,id }: TaskCardProps) => {
+const TaskCard = ({ title, description, completed, bgColor, date, id }: TaskCardProps) => {
   const { isDarkMode } = useContext(ThemeContext);
   const { deleteTask, toggleTask } = useContext(TaskContext);
- 
+  const [isOpen, setIsOpen] = useState(false);
   const colors = {
-  Headtext:  '#2B0F4E' ,
-  Bodytext: '#000',
- }
+    Headtext: '#2B0F4E',
+    Bodytext: '#000',
+  }
 
   return (
-    <View style={[styles.card, { backgroundColor: bgColor }]}>
-      <Text style={[styles.title, { color: colors.Headtext }]}>{title}</Text>
-      <Text style={[styles.date, { color: colors.Bodytext }]}>{date}</Text>
-      <Text style={[styles.description, { color: colors.Bodytext }]}>
-        {description}
-      </Text>
-      <View style={styles.buttonContainer}>
-        <Button
-          style={styles.dltbutton}
-          icon="delete"
-          mode="contained-tonal"
-          onPress={() => deleteTask(id)}
-        >
-          Delete
-        </Button>
-        <Button
-          style={styles.edtbutton}
-          icon="pencil"
-          mode="outlined"
-          textColor={colors.Headtext}
-         
-        >
-          Edit
-        </Button>
-      </View>
+    <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
 
-    </View>
+      <View style={[styles.card, { backgroundColor: bgColor }]}>
+        {
+          completed && (
+            <Chip icon="calendar-multiple-check" mode="outlined" style={styles.chip}>Completed</Chip>
+          )
+        }
+
+        <Text style={[styles.title, { color: colors.Headtext }]}>{title}
+        </Text>
+
+        <Text style={[styles.date, { color: colors.Bodytext }]}>{date.split('T')[0]}</Text>
+        {
+          isOpen ? (
+            <Text style={[styles.description, { color: colors.Bodytext }]}>
+              {description}
+            </Text>
+          ) : (
+            <Text style={[styles.description, { color: colors.Bodytext }]}>
+              Click to view description
+            </Text>
+          )
+        }
+
+
+        <View style={styles.buttonContainer}>
+          <Button
+            style={styles.dltbutton}
+            icon="delete"
+            mode="contained-tonal"
+            onPress={() => deleteTask(id)}
+          >
+            Delete
+          </Button>
+          <Button
+            style={styles.edtbutton}
+            icon="pencil"
+            mode="outlined"
+            textColor={colors.Headtext}
+            onPress={() => toggleTask(id)}
+          >
+            {
+              completed ? 'Mark as Incomplete' : 'Mark as Completed'
+          }
+          </Button>
+        </View>
+
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -71,7 +95,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   title: {
-    fontSize: 35,
+    fontSize: 33,
     fontWeight: 'bold',
     marginBottom: 8,
   },
@@ -97,6 +121,10 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 14,
     marginBottom: 10,
+  },
+  chip: {
+    marginLeft: 'auto',
+    color: 'blue'
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import {
   ScrollView,
@@ -11,6 +11,7 @@ import {
 import Navigation from './src/screens/Navigation';
 import { ThemeContext, ThemeProvider } from './src/Context/MyContext';
 import { TaskProvider } from './src/Context/TaskContext';
+import SplashScreen from 'react-native-splash-screen';
 
 const AppContent = () => {
   const {colors, isDarkMode} = useContext(ThemeContext);
@@ -30,6 +31,9 @@ const AppContent = () => {
 };
 
 function App(): React.JSX.Element {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     <ThemeProvider>
       <TaskProvider>

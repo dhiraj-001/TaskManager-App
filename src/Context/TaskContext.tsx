@@ -1,15 +1,17 @@
-import React, {createContext, useState} from 'react';
+import React, {createContext, useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Task {
   id: string;
   title: string;
   completed: boolean;
   date: string;
+  description: string;
 }
 
 interface TaskContextType {
   tasks: Task[];
-  addTask: (title: string) => void;
+  addTask: (task: Task) => void;
   deleteTask: (id: string) => void;
   toggleTask: (id: string) => void;
 }
@@ -22,48 +24,48 @@ export const TaskContext = createContext<TaskContextType>({
 });
 
 export const TaskProvider = ({children}: {children: React.ReactNode}) => {
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: '1',
-      title: 'Complete React Native Project',
-      completed: false,
-      date: '2025-01-01',
-    },
-    {
-      id: '2',
-      title: 'Learn TypeScript',
-      completed: true,
-      date: '2025-01-01',
-    },
-    {
-      id: '3',
-      title: 'Build Portfolio Website',
-      completed: false,
-      date: '2025-01-01',
-    },
-    {
-      id: '4',
-      title: 'Practice DSA',
-      completed: false,
-      date: '2025-01-01',
-    },
-    {
-      id: '5',
-      title: 'Read Clean Code Book',
-      completed: true,  
-      date: '2025-01-01',
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  const addTask = (title: string) => {
+  // Load tasks from AsyncStorage when the app starts
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        const savedTasks = await AsyncStorage.getItem('tasks');
+        if(!savedTasks) {
+          throw new Error('No tasks found');
+        }
+        if (savedTasks) {
+          setTasks(JSON.parse(savedTasks));
+        }
+      } catch (error) {
+        console.error('Error loading tasks:', error);
+      }
+    };
+    loadTasks();
+  }, []);
+
+  // Save tasks to AsyncStorage whenever tasks change
+  useEffect(() => {
+    const saveTasks = async () => {
+      try {
+        await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+      } catch (error) {
+        console.error('Error saving tasks:', error);
+      }
+    };
+    saveTasks();
+  }, [tasks]);
+
+  const addTask = (task: Task) => {
     setTasks([
       ...tasks,
-   {
-    id: Date.now().toString(),
-    title,
-    completed: false,
-    date: new Date().toISOString(),
-   }
+      {
+        id: Date.now().toString(),
+        title: task.title,
+        description: task.description,
+        completed: false,
+        date: task.date,
+      }
     ]);
   };
 
