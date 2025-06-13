@@ -100,7 +100,7 @@ const AddTaskScreen = () => {
 
           <DatePicker
             modal
-            mode="date"
+            mode='datetime'
             open={open}
             date={date}
             onConfirm={(date) => {
