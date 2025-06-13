@@ -19,7 +19,9 @@ const HomeScreen = () => {
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   return (
-    <View style={[{ backgroundColor: colors.bgColor }, styles.container]}>
+    <ScrollView
+    showsVerticalScrollIndicator={false}
+    style={[{ backgroundColor: colors.bgColor }, styles.container]}>
       <View style={styles.headerBox}>
         <View style={styles.headerLeft}>
           <Text style={[styles.hiiText, { color: colors.Headtext }]}>Hii, </Text>
@@ -46,7 +48,7 @@ const HomeScreen = () => {
                 description={item.description ? item.description : "No description added"}
                 completed={item.completed}
                 bgColor={bgColors[index % bgColors.length]}
-                date={item.date}
+                due={item.due}
                 id={item.id}
               />
             )}
@@ -60,7 +62,7 @@ const HomeScreen = () => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

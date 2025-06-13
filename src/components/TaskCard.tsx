@@ -12,12 +12,12 @@ interface TaskCardProps {
   description: string;
   completed: boolean;
   bgColor: string;
-  date: string;
   id: string;
+  due: Date;
 }
 
 
-const TaskCard = ({ title, description, completed, bgColor, date, id }: TaskCardProps) => {
+const TaskCard: React.FC<TaskCardProps> = ({ title, description, completed, bgColor, id, due }) => {
   const { isDarkMode } = useContext(ThemeContext);
   const { deleteTask, toggleTask } = useContext(TaskContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +39,7 @@ const TaskCard = ({ title, description, completed, bgColor, date, id }: TaskCard
         <Text style={[styles.title, { color: colors.Headtext }]}>{title}
         </Text>
 
-        <Text style={[styles.date, { color: colors.Bodytext }]}>{date.split('T')[0]}</Text>
+        <Text style={[styles.date, { color: colors.Bodytext }]}>Due Date: {due.toLocaleDateString()}</Text>
         {
           isOpen ? (
             <Text style={[styles.description, { color: colors.Bodytext }]}>
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 14,
     marginBottom: 10,
+    fontWeight: 'bold',
   },
   chip: {
     marginLeft: 'auto',
