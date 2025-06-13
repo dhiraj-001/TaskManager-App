@@ -1,14 +1,30 @@
-# TaskManager
+# Task Manager App
 
-A modern, user-friendly task management app built with React Native. TaskManager helps you organize your tasks efficiently with a beautiful UI and smooth user experience.
+A React Native application for managing tasks with a beautiful UI and intuitive features.
 
 ## Features
 
-- **Task Management**: Add, delete, and mark tasks as completed.
-- **Persistent Storage**: Tasks are saved locally using AsyncStorage, so they remain even after closing the app.
-- **Dark Mode**: Toggle between light and dark themes for comfortable viewing.
-- **Responsive UI**: Clean and intuitive interface with smooth animations.
-- **Cross-Platform**: Works on both Android and iOS.
+### Task Management
+- Create, delete, and mark tasks as complete
+- Add task descriptions and due dates
+- Beautiful card-based UI with color-coded tasks
+- Dark/Light mode support
+- Persistent storage using AsyncStorage
+
+### Smart Notifications
+- Automatic notifications for tasks due within 24 hours
+- Immediate notification when a task is due within 2 hours
+- Notification badge showing count of upcoming tasks
+- Visual indicators for tasks due soon (red text)
+- Notification permission handling
+
+### UI/UX Features
+- Clean and modern interface
+- Smooth animations and transitions
+- Responsive design
+- Intuitive navigation
+- Task completion status indicators
+- Due date formatting with time display
 
 ## Screenshots
 
@@ -18,33 +34,42 @@ A modern, user-friendly task management app built with React Native. TaskManager
 <img src="assets/task-list.jpg" alt="Task List" width="300" />
 <img src="assets/dark-mode.jpg" alt="Dark Mode" width="300" />
 
-## Installation
+## Getting Started
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/TaskManager.git
-   cd TaskManager
-   ```
+### Prerequisites
+- Node.js
+- React Native development environment
+- Android Studio (for Android development)
+- Xcode (for iOS development)
 
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+### Installation
+1. Clone the repository
+```bash
+git clone [repository-url]
+```
 
-3. **Install AsyncStorage** (if not already installed):
-   ```bash
-   npm install @react-native-async-storage/async-storage
-   ```
+2. Install dependencies
+```bash
+cd TaskManager
+npm install
+```
 
-4. **Run the app**:
-   - For Android:
-     ```bash
-     npm run android
-     ```
-   - For iOS:
-     ```bash
-     npm run ios
-     ```
+3. Run the application
+```bash
+# For Android
+npm run android
+
+# For iOS
+npm run ios
+```
+
+## Dependencies
+- React Native
+- React Navigation
+- React Native Paper
+- @notifee/react-native (for notifications)
+- @react-native-async-storage/async-storage
+- React Native Vector Icons
 
 ## Usage
 
@@ -80,9 +105,7 @@ To generate a release APK for Android:
 5. **Find the APK** at `android/app/build/outputs/apk/release/app-release.apk`.
 
 ## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+Feel free to submit issues and enhancement requests!
 
 ## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License.
