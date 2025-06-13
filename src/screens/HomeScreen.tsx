@@ -8,7 +8,7 @@ import Icon3 from 'react-native-vector-icons/Entypo';
 import { TaskContext } from '../Context/TaskContext';
 import TaskCard from '../components/TaskCard';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { Button } from 'react-native-paper';
+import { Button, Badge } from 'react-native-paper';
 const bgColors = ['#9ECFF5', '#B4C89F', '#FFF9C4', '#D4A9DD'];
 
 const HomeScreen = () => {
@@ -17,6 +17,16 @@ const HomeScreen = () => {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const navigation = useNavigation<NavigationProp<any>>();
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+
+  const getDueTasksCount = () => {
+    const now = new Date();
+    return tasks.filter(task => {
+      if (task.completed) return false;
+      const dueDate = new Date(task.due);
+      const diffInHours = (dueDate.getTime() - now.getTime()) / (1000 * 60 * 60);
+      return diffInHours <= 2 && diffInHours > 0;
+    }).length;
+  };
 
   return (
     <ScrollView
@@ -33,7 +43,17 @@ const HomeScreen = () => {
               isDarkMode ? <Icon2 name="sun" size={20} color={colors.Headtext} /> : <Icon3 name="moon" size={20} color={colors.Headtext} />
             }
           </TouchableOpacity>
-          <Icon name="bell" style={[styles.bellIcon, { color: colors.Headtext }]} />
+          <View style={styles.bellContainer}>
+            <Icon name="bell" style={[styles.bellIcon, { color: colors.Headtext }]} />
+            {getDueTasksCount() > 0 && (
+              <Badge
+                size={16}
+                style={styles.badge}
+              >
+                {getDueTasksCount()}
+              </Badge>
+            )}
+          </View>
         </View>
       </View>
       <View style={styles.taskBox}>{
@@ -65,8 +85,6 @@ const HomeScreen = () => {
     </ScrollView>
   );
 };
-
-export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -101,7 +119,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   bellIcon: {
-    fontSize: 20,
+    fontSize: 23,
+  },
+  bellContainer: {
+    position: 'relative',
+  },
+  badge: {
+    position: 'absolute',
+    top: -6,
+    right: 1,
+    backgroundColor: '#FF0000',
   },
   taskBox: {
     padding: 0,
@@ -121,3 +148,5 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+export default HomeScreen;

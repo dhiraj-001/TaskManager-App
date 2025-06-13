@@ -26,6 +26,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ title, description, completed, bgCo
     Bodytext: '#000',
   }
 
+  const isDueWithinTwoHours = () => {
+    const now = new Date();
+    const dueDate = new Date(due);
+    const diffInHours = (dueDate.getTime() - now.getTime()) / (1000 * 60 * 60);
+    return diffInHours <= 2 && diffInHours > 0 && !completed;
+  };
+
   return (
     <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
 
@@ -39,7 +46,18 @@ const TaskCard: React.FC<TaskCardProps> = ({ title, description, completed, bgCo
         <Text style={[styles.title, { color: colors.Headtext }]}>{title}
         </Text>
 
-        <Text style={[styles.date, { color: colors.Bodytext }]}>Due Date: {due.toLocaleDateString()}</Text>
+        <Text style={[
+          styles.date, 
+          { color: isDueWithinTwoHours() ? '#FF0000' : colors.Bodytext }
+        ]}>
+          Due Date: {new Date(due).toLocaleString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })}
+        </Text>
         {
           isOpen ? (
             <Text style={[styles.description, { color: colors.Bodytext }]}>
@@ -125,7 +143,7 @@ const styles = StyleSheet.create({
   },
   chip: {
     marginLeft: 'auto',
-    color: 'blue'
+    backgroundColor: '#AED581',
   },
 });
 
